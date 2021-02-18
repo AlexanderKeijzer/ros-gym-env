@@ -25,7 +25,7 @@ class ROSEnv(gym.Env):
         self.observations = OrderedDict()
         for sensor in sensors:
             register_sensor = rospy.ServiceProxy(sensor, RegisterSpaces)
-            rospy.wait_for_service(sensor, 10.0)
+            rospy.wait_for_service(sensor, 60.0)
             resp = register_sensor()
 
             obs_dict[sensor] = spaces.Box(np.array(resp.low), np.array(resp.high))
@@ -50,7 +50,7 @@ class ROSEnv(gym.Env):
         self.actuators = OrderedDict()
         for actuator in actuators:
             register_actuator = rospy.ServiceProxy(actuator, RegisterSpaces)
-            rospy.wait_for_service(actuator, 10.0)
+            rospy.wait_for_service(actuator, 60.0)
             resp = register_actuator()
 
             act_dict[actuator] = spaces.Box(np.array(resp.low), np.array(resp.high))
